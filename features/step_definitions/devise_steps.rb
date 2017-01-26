@@ -41,7 +41,9 @@ end
 
 Given(/^(\S+) has an account$/) do |email|
   # step "register as #{email}"
-  User.create! email: email, password: 'hunter2'
+  # User.create! email: email, password: 'hunter2'
+  @user = User.create! email: Faker::Internet.email, password: 'hunter2'
+
 end
 
 And(/^I should see that the email is taken$/) do
@@ -50,4 +52,34 @@ end
 
 And(/^there should be no new user accounts$/) do
   expect(User.count).to eq 1
+end
+
+When(/^I enter my email and password$/) do
+  fill_in 'user_email', with: @user.email
+  fill_in 'user_password', with: 'hunter2'
+end
+
+And(/^I'm on the sign in page$/) do
+  visit '/users/sign_in'
+end
+
+And(/^I click Log in$/) do
+  click_on 'Log in'
+end
+
+Given(/^user is logged in$/) do
+  @user = User.create! email: Faker::Internet.email, password: 'hunter2'
+  visit '/users/sign_in'
+  fill_in 'user_email', with: @user.email
+  fill_in 'user_password', with: 'hunter2'
+  click_on 'Log in'
+  expect(page).to have_content 'Home Page!'
+end
+
+When(/^I click on Log out$/) do
+  click_on 'Log out'
+end
+
+Then(/^I should see the log in link$/) do
+  expect(page).to have_content 'Log In'
 end

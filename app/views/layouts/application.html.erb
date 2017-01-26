@@ -10,7 +10,16 @@
 
 <% if current_user %>
   <p>Signed in as: <%= current_user.email %></p>
+    <li><%= link_to 'Log out', '/users/sign_out', method: :delete %></li>
+
+<% else %>
+    <ul class="navbar-links">
+      <li><a href="/users/sign_up">Sign Up</a></li>
+      <li><a href="/users/sign_in">Log In</a></li>
+    </ul>
 <% end %>
+<p class="notice"><%= notice %>
+</p><p class="alert"><%= alert %></p>
 
 <%= yield %>
 
