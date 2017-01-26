@@ -1,0 +1,22 @@
+<h1>Dashboard</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th><h2>Title</h2></th>
+    <th><h2>Body</h2></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @favorites.each do |p| %>
+      <tr>
+        <td>
+          <a href="/posts/<%= p.id %>">
+            <%= p.title %>
+          </a>
+        </td>
+        <td style="padding: 0 40px;"><%= p.body %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
