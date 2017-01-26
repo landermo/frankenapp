@@ -18,3 +18,10 @@ Feature: Devise Sign-in
     Given user is logged in
     When I click on Log out
     Then I should see the log in link
+
+  Scenario: password minimum failure test
+    Given I do not have an account
+    And I'm on the sign up page
+    When I register as a user with an incorrect password length
+    Then Account is not created
+    And I see an error message
